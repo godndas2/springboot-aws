@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="ISO-8859-1">
-    <link th:href="@{/style/main.css}" type="text/css" rel="stylesheet" media="screen,projection"/>
+    <link th:href="@{/static/style/main.css}" type="text/css" rel="stylesheet" media="screen,projection"/>
     <title>Send Email</title>
 </head>
 <body>
@@ -28,10 +28,10 @@
                     </div>
                 </li>
             </ul>
-            <button type="button" onclick="addTask()">Add</button>
+            <button type="button" class="btn btn-primary" onclick="addTask()">Add</button>
         </div>
         <div>
-            <button type="submit" name="send">Send</button>
+            <button class="btn btn-secondary active" type="submit" name="send">Send</button>
         </div>
     </form>
 </div>
