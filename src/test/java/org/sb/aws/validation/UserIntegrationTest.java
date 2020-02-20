@@ -43,7 +43,7 @@ public class UserIntegrationTest {
     @MockBean
     private JavaMailSender javaMailSender;
 
-    private Long tokenId;
+//    private Long tokenId;
     private Long userId;
 
     @Before
