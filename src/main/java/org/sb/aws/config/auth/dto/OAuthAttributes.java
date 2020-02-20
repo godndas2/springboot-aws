@@ -2,12 +2,14 @@ package org.sb.aws.config.auth.dto;
 
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.sb.aws.entity.user.Role;
 import org.sb.aws.entity.user.User;
 
 import java.util.Map;
 
 @Getter
+@NoArgsConstructor
 public class OAuthAttributes {
     private Map<String, Object> attributes;
     private String nameAttributeKey;
