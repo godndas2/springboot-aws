@@ -25,6 +25,9 @@ public class User extends BaseTimeEntity {
     @Column
     private String picture;
 
+    @Column
+    private boolean enabled;
+
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Role role;
@@ -46,5 +49,10 @@ public class User extends BaseTimeEntity {
 
     public String getRoleKey() {
         return this.role.getKey();
+    }
+
+    public User() {
+        super();
+        this.enabled = false;
     }
 }
