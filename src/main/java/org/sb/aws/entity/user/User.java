@@ -4,6 +4,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import org.sb.aws.entity.BaseTimeEntity;
+import org.sb.aws.entity.mail.VerificationToken;
 
 import javax.persistence.*;
 

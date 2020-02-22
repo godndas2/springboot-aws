@@ -1,8 +1,9 @@
-package org.sb.aws.entity.user;
+package org.sb.aws.entity.mail;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.sb.aws.entity.user.User;
 
 import javax.persistence.*;
 import java.sql.Timestamp;

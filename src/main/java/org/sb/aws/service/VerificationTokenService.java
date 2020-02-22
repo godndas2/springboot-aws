@@ -3,8 +3,8 @@ package org.sb.aws.service;
 import lombok.RequiredArgsConstructor;
 import org.sb.aws.entity.user.User;
 import org.sb.aws.entity.user.UserRepository;
-import org.sb.aws.entity.user.VerificationToken;
-import org.sb.aws.entity.user.VerificationTokenRepository;
+import org.sb.aws.entity.mail.VerificationToken;
+import org.sb.aws.entity.mail.VerificationTokenRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 

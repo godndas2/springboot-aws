@@ -1,4 +1,4 @@
-package org.sb.aws.entity.user;
+package org.sb.aws.entity.mail;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
