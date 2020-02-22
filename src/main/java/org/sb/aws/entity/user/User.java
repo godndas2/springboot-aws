@@ -2,11 +2,13 @@ package org.sb.aws.entity.user;
 
 import lombok.Builder;
 import lombok.Getter;
+import lombok.Setter;
 import org.sb.aws.entity.BaseTimeEntity;
 
 import javax.persistence.*;
 
 @Getter
+@Setter
 @Entity
 public class User extends BaseTimeEntity {
 

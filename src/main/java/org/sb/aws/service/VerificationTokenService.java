@@ -5,8 +5,10 @@ import org.sb.aws.entity.user.User;
 import org.sb.aws.entity.user.UserRepository;
 import org.sb.aws.entity.user.VerificationToken;
 import org.sb.aws.entity.user.VerificationTokenRepository;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -41,5 +43,22 @@ public class VerificationTokenService {
         mailService.sendVerificationMail(email, verificationToken.getToken());
     }
 
-    // TODO verifyEmail
+    public ResponseEntity<String> verifyEmail(String token){
+        List<VerificationToken> verificationTokens = verificationTokenRepository.findByToken(token);
+        if (verificationTokens.isEmpty()) {
+            return ResponseEntity.badRequest().body("Invalid token.");
+        }
+
+        VerificationToken verificationToken = verificationTokens.get(0);
+        if (verificationToken.getExpiredDateTime().isBefore(LocalDateTime.now())) {
+            return ResponseEntity.unprocessableEntity().body("Expired token.");
+        }
+
+        verificationToken.setConfirmedDateTime(LocalDateTime.now());
+        verificationToken.setStatus(VerificationToken.STATUS_VERIFIED);
+        verificationToken.getUser().setEnabled(true);
+        verificationTokenRepository.save(verificationToken);
+
+        return ResponseEntity.ok("You have successfully verified your email address.");
+    }
 }
