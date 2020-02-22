@@ -4,14 +4,23 @@ import com.github.mustachejava.DefaultMustacheFactory;
 import com.github.mustachejava.Mustache;
 import com.github.mustachejava.MustacheFactory;
 import lombok.RequiredArgsConstructor;
+import org.apache.catalina.User;
+import org.apache.catalina.core.ApplicationPushBuilder;
 import org.sb.aws.rest.dto.EmailDto;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Errors;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
+import javax.validation.constraints.Email;
 import java.io.IOException;
 import java.io.StringWriter;
 
@@ -51,4 +60,31 @@ public class MailController {
 
         return "mail/sendEmail";
     }
+
+//    private final ApplicationEventPublisher eventPublisher;
+//
+//    @RequestMapping(value = "/user/registration", method = RequestMethod.POST)
+//    public ModelAndView registerUserAccount(
+//            @ModelAttribute("user") @Valid EmailDto accountDto,
+//            BindingResult result,
+//            WebRequest request,
+//            Errors errors) {
+//
+//        if (result.hasErrors()) {
+//            return new ModelAndView("registration", "user", accountDto);
+//        }
+//
+//        User registered = createUserAccount(accountDto);
+//        if (registered == null) {
+//            result.rejectValue("email", "message.regError");
+//        }
+//        try {
+//            String appUrl = request.getContextPath();
+//            eventPublisher.publishEvent(new OnRegistrationCompleteEvent
+//                    (registered, request.getLocale(), appUrl));
+//        } catch (Exception me) {
+//            return new ModelAndView("emailError", "user", accountDto);
+//        }
+//        return new ModelAndView("successRegister", "user", accountDto);
+//    }
 }

@@ -2,13 +2,11 @@ package org.sb.aws.entity.user;
 
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import org.sb.aws.entity.BaseTimeEntity;
 
 import javax.persistence.*;
 
 @Getter
-@NoArgsConstructor
 @Entity
 public class User extends BaseTimeEntity {
 
@@ -27,6 +25,9 @@ public class User extends BaseTimeEntity {
 
     @Column
     private boolean enabled;
+
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    private VerificationToken verificationToken;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
