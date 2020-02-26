@@ -54,11 +54,11 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
 
 
     public User saveOrUpdate(OAuthAttributes attributes) throws EmailExistsException {
-        if (emailExist(attributes.getEmail())) {
-            throw new EmailExistsException(
-                    "There is an account with that email address: "
-                    + attributes.getEmail());
-        }
+//        if (emailExist(attributes.getEmail())) {
+//            throw new EmailExistsException(
+//                    "There is an account with that email address: "
+//                    + attributes.getEmail());
+//        }
 
         User user = userRepository.findByEmail(attributes.getEmail())
                 .map(entity -> entity.update(attributes.getName(), attributes.getPicture()))
