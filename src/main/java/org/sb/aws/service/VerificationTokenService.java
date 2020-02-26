@@ -1,10 +1,11 @@
 package org.sb.aws.service;
 
 import lombok.RequiredArgsConstructor;
-import org.sb.aws.entity.user.User;
-import org.sb.aws.entity.user.UserRepository;
 import org.sb.aws.entity.mail.VerificationToken;
 import org.sb.aws.entity.mail.VerificationTokenRepository;
+import org.sb.aws.entity.user.Role;
+import org.sb.aws.entity.user.User;
+import org.sb.aws.entity.user.UserRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -16,32 +17,35 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class VerificationTokenService {
 
-    private UserRepository userRepository;
-    private VerificationTokenRepository verificationTokenRepository;
-    private MailService mailService;
+    private final VerificationTokenRepository verificationTokenRepository;
 
-    public void createVerification(String email) {
-        Optional<User> users = userRepository.findByEmail(email);
-        User user;
-        if (users.isPresent()) {
-            user = User.builder().email(email).build();
-            userRepository.save(user);
-        } else {
-            user = users.get(); // get(0); ?
-        }
-
-        List<VerificationToken> verificationTokens = verificationTokenRepository.findByUserEmail(email);
-        VerificationToken verificationToken;
-        if (verificationTokens.isEmpty()) {
-            verificationToken = new VerificationToken();
-            verificationToken.setUser(user);
-            verificationTokenRepository.save(verificationToken);
-        } else {
-            verificationToken = verificationTokens.get(0);
-        }
-
-        mailService.sendVerificationMail(email, verificationToken.getToken());
-    }
+//    public void createVerification(String email) {
+//        Optional<User> users = userRepository.findByEmail(email);
+//        User user;
+//
+//        if (users.isPresent()) {
+//            user = User.builder()
+//                    .email(email)
+//                    .name("admin")
+//                    .role(Role.USER)
+//                    .build();
+//            userRepository.save(user);
+//        } else {
+//            user = users.orElse(User.builder().email(email).build());
+//        }
+//
+//        List<VerificationToken> verificationTokens = verificationTokenRepository.findByUserEmail(email);
+//        VerificationToken verificationToken;
+//        if (verificationTokens.isEmpty()) {
+//            verificationToken = new VerificationToken();
+//            verificationToken.setUser(user);
+//            verificationTokenRepository.save(verificationToken);
+//        } else {
+//            verificationToken = verificationTokens.get(0);
+//        }
+//
+//        mailService.sendVerificationMail(email, verificationToken.getToken());
+//    }
 
     public ResponseEntity<String> verifyEmail(String token){
         List<VerificationToken> verificationTokens = verificationTokenRepository.findByToken(token);

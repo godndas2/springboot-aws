@@ -1,15 +1,11 @@
 package org.sb.aws.entity.mail;
 
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.sb.aws.entity.user.User;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.UUID;
 
 /**
@@ -38,7 +34,7 @@ public class VerificationToken {
     private LocalDateTime confirmedDateTime;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
     public VerificationToken(){

@@ -16,43 +16,47 @@
             <label class="active" for="subject">Subject</label>
             <input th:field="*{subject}" id="subject" type="text"/>
         </div>
-        <div class="grouping">
-            Tasks
-            <hr>
-        </div>
-        <div>
-            <ul id="taskList">
-                <li th:each="number, stat : *{tasks}" class="childDisplay">
-                    <div>
-                        <input th:field="*{tasks[__${stat.index}__]}" th:id="${'tasks-'+stat.index}" type="text"/>
-                    </div>
-                </li>
-            </ul>
-            <button type="button" class="btn btn-primary" onclick="addTask()">Add</button>
-        </div>
+
+        <!-- TODO ???? ?? ?? ??? DEMO -->
+<!--        <div class="grouping">-->
+<!--            Tasks-->
+<!--            <hr>-->
+<!--        </div>-->
+<!--        <div>-->
+<!--            <ul id="taskList">-->
+<!--                <li th:each="number, stat : *{tasks}" class="childDisplay">-->
+<!--                    <div>-->
+<!--                        <input th:field="*{tasks[__${stat.index}__]}" th:id="${'tasks-'+stat.index}" type="text"/>-->
+<!--                    </div>-->
+<!--                </li>-->
+<!--            </ul>-->
+<!--            <button type="button" class="btn btn-primary" onclick="addTask()">Add</button>-->
+<!--        </div>-->
+        <hr>
         <div>
             <button class="btn btn-secondary active" type="submit" name="send">Send</button>
         </div>
     </form>
 </div>
-<script type="text/javascript">
-    var x= [];
-    var index = 1;
+<!--<script type="text/javascript">-->
+<!-- TODO ???? ?? ?? ??? DEMO -->
+<!--    var x= [];-->
+<!--    var index = 1;-->
 
-    function addTask(){
-        var taskList = document.getElementById('taskList');
-        var newLi = document.createElement('li');
-        newLi.setAttribute("class", "childDisplay");
-        var newDiv = document.createElement('div');
-        var newTask = document.createElement('input');
-        newTask.setAttribute("name", "tasks[" + index + "]");
-        newTask.setAttribute("id", "tasks-" + index);
-        newTask.setAttribute("type", "text");
-        newDiv.appendChild(newTask);
-        newLi.appendChild(newDiv);
-        taskList.appendChild(newLi);
-        index = index + 1;
-    }
-</script>
+<!--    function addTask(){-->
+<!--        var taskList = document.getElementById('taskList');-->
+<!--        var newLi = document.createElement('li');-->
+<!--        newLi.setAttribute("class", "childDisplay");-->
+<!--        var newDiv = document.createElement('div');-->
+<!--        var newTask = document.createElement('input');-->
+<!--        newTask.setAttribute("name", "tasks[" + index + "]");-->
+<!--        newTask.setAttribute("id", "tasks-" + index);-->
+<!--        newTask.setAttribute("type", "text");-->
+<!--        newDiv.appendChild(newTask);-->
+<!--        newLi.appendChild(newDiv);-->
+<!--        taskList.appendChild(newLi);-->
+<!--        index = index + 1;-->
+<!--    }-->
+<!--</script>-->
 </body>
 </html>
