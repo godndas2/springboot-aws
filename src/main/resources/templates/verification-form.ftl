@@ -1,9 +1,13 @@
+<<<<<<< HEAD
 <#import "/spring.ftl" as spring />
 
+=======
+>>>>>>> 861fb26b69bacd0683aa77f740230b6589c02fa4
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+<<<<<<< HEAD
     <title>Activate account with Spring Boot, MongoDB, NGINX, Docker Compose</title>
 </head>
 <body>
@@ -21,5 +25,11 @@
         <input type="submit" value="Submit">
     </form>
 </#if>
+=======
+    <title>$Title$</title>
+</head>
+<body>
+$END$
+>>>>>>> 861fb26b69bacd0683aa77f740230b6589c02fa4
 </body>
 </html>
