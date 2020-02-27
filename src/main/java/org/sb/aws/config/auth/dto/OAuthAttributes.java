@@ -61,7 +61,7 @@ public class OAuthAttributes {
                 .name(name)
                 .email(email)
                 .picture(picture)
-                .role(Role.USER) // db에 guest 로 save 돼서 바꿔줌
+                .role(Role.USER)
                 .build();
     }
 }

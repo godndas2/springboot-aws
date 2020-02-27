@@ -17,11 +17,9 @@ import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpSession;
 import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
 
-@RequiredArgsConstructor
 @Service
+@RequiredArgsConstructor
 public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequest, OAuth2User> {
     private final UserRepository userRepository;
     private final HttpSession httpSession;
@@ -54,11 +52,6 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
 
 
     public User saveOrUpdate(OAuthAttributes attributes) throws EmailExistsException {
-//        if (emailExist(attributes.getEmail())) {
-//            throw new EmailExistsException(
-//                    "There is an account with that email address: "
-//                    + attributes.getEmail());
-//        }
 
         User user = userRepository.findByEmail(attributes.getEmail())
                 .map(entity -> entity.update(attributes.getName(), attributes.getPicture()))
@@ -67,9 +60,5 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
         return userRepository.save(user);
     }
 
-    private boolean emailExist(String email) {
-        Optional<User> user = userRepository.findByEmail(email);
-        return user.isPresent();
-    }
 }
 
