@@ -11,12 +11,10 @@ import org.sb.aws.entity.user.Role;
 import org.sb.aws.entity.user.User;
 import org.sb.aws.entity.user.UserRepository;
 import org.sb.aws.exception.EmailExistsException;
-import org.sb.aws.rest.dto.EmailDto;
 import org.sb.aws.service.VerificationTokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.http.ResponseEntity;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
@@ -47,7 +45,6 @@ public class UserIntegrationTest {
     @MockBean
     private JavaMailSender javaMailSender;
 
-    private String token;
     private Long userId;
 
     @Before
@@ -88,6 +85,12 @@ public class UserIntegrationTest {
 
         final User user = customOAuth2UserService.saveOrUpdate(oAuthAttributes);
 
+        final VerificationToken token = getVerificationToken();
+        user.setVerificationToken(token); // VerificationToken of User not working
+
+        assertNotNull(token.getToken());
+        assertNotNull(token.getId());
+
         assertNotNull(user);
         assertNotNull(user.getEmail());
         assertEquals(userEmail, user.getEmail());
@@ -101,10 +104,14 @@ public class UserIntegrationTest {
                 .build();
     }
 
-    public void getVerificationToken() {
+    public VerificationToken getVerificationToken() {
         VerificationToken verificationToken = new VerificationToken();
-        verificationTokenService.verifyEmail(verificationToken.getToken());
-    }
+        String token = verificationToken.getToken();
+        verificationTokenService.verifyEmail(token);
 
+        assertNotNull(token);
+
+        return verificationToken;
+    }
 
 }

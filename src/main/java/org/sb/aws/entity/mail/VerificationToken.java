@@ -19,13 +19,12 @@ import java.util.UUID;
 @Entity
 @Getter
 @Setter
-@Table(name = "VERIFICATION_TOKEN")
 public class VerificationToken {
     public static final String STATUS_PENDING = "PENDING";
     public static final String STATUS_VERIFIED = "VERIFIED";
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     private String token;
