@@ -20,6 +20,12 @@ var main = {
             content: $('#content').val()
         };
 
+        if (!data.title || !data.author) {
+            alert("제목 또는 작성자가 입력되지 않았습니다");
+            return false;
+        }
+        // TODO 공백체크, 공백제거
+
         $.ajax({
             type: 'POST',
             url: '/api/v1/posts',
@@ -30,7 +36,7 @@ var main = {
             alert('글이 등록되었습니다.');
             window.location.href = '/';
         }).fail(function (error) {
-            alert(JSON.stringify(error));
+            alert('올바른 입력방법이 아닙니다');
         });
     },
     update : function () {
@@ -71,5 +77,11 @@ var main = {
     }
 
 };
+
+function isEmpty(obj) {
+
+    return Object.keys(obj).length === 0;
+
+}
 
 main.init();

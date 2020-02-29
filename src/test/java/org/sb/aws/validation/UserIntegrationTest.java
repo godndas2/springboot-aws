@@ -78,6 +78,7 @@ public class UserIntegrationTest {
         assertTrue(userRepository.count() > 0);
     }
 
+    // TODO ACCOUNT CONFIRM EMAIL
     @Test
     public void givenNewUser_whenRegistered_thenCorrect() throws EmailExistsException {
         final String userEmail = UUID.randomUUID().toString();

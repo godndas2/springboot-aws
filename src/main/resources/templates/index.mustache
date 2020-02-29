@@ -11,8 +11,11 @@
             {{/userName}}
             <a href="/mail" class="btn btn-primary" role="button">Invite</a> <!-- popup 으로 바꾸자 -->
             {{^userName}}
-                <a href="/oauth2/authorization/google" class="btn btn-success active" role="button">Google Login</a>
-                <a href="/oauth2/authorization/naver" class="btn btn-secondary active" role="button">Naver Login</a>
+                <a href="/oauth2/authorization/google" class="btn btn-outline-dark" role="button">
+                    <img width="20px" style="margin-bottom:3px; margin-right:5px" alt="Google sign-in" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png" />
+                    Google Login
+                </a>
+                <a href="/oauth2/authorization/naver" class="btn btn-outline-success" role="button">Naver Login</a>
             {{/userName}}
         </div>
     </div>

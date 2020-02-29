@@ -9,8 +9,10 @@ import org.sb.aws.rest.dto.PostsSaveRequestDto;
 import org.sb.aws.rest.dto.PostsUpdateRequestDto;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -18,8 +20,29 @@ import java.util.stream.Collectors;
 public class PostsService {
     private final PostsRepository postsRepository;
 
+    private static boolean isBlank(String str) {
+        int strLen;
+
+        str = str.trim();
+
+        if ((strLen = str.length()) == 0) {
+            return true;
+        }
+
+        for (int i = 0; i < strLen; i++) {
+            if ((!Character.isWhitespace(str.charAt(i)))) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     @Transactional
     public Long save(PostsSaveRequestDto requestDto) {
+        if (isBlank(requestDto.getTitle()) || isBlank(requestDto.getAuthor())) {
+            throw new IllegalArgumentException("제목 또는 작성자가 입력되지 않았습니다");
+        }
+
         return postsRepository.save(requestDto.toEntity()).getId();
     }
 
