@@ -44,7 +44,7 @@ public class MailControllerTest {
     WebApplicationContext context;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         this.mockMvc = MockMvcBuilders.webAppContextSetup(context).build();
     }
 

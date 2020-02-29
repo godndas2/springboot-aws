@@ -6,21 +6,23 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.sb.aws.config.auth.CustomOAuth2UserService;
 import org.sb.aws.config.auth.dto.OAuthAttributes;
+import org.sb.aws.entity.mail.VerificationToken;
 import org.sb.aws.entity.user.Role;
 import org.sb.aws.entity.user.User;
 import org.sb.aws.entity.user.UserRepository;
 import org.sb.aws.exception.EmailExistsException;
-import org.sb.aws.rest.dto.PostsSaveRequestDto;
+import org.sb.aws.rest.dto.EmailDto;
+import org.sb.aws.service.VerificationTokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.ResponseEntity;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import java.util.Collections;
 import java.util.UUID;
 
 import static junit.framework.TestCase.assertTrue;
@@ -36,6 +38,8 @@ public class UserIntegrationTest {
     private UserRepository userRepository;
     @Autowired
     private CustomOAuth2UserService customOAuth2UserService;
+    @Autowired
+    private VerificationTokenService verificationTokenService;
 
     @PersistenceContext
     private EntityManager entityManager;
@@ -43,16 +47,18 @@ public class UserIntegrationTest {
     @MockBean
     private JavaMailSender javaMailSender;
 
-//    private Long tokenId;
+    private String token;
     private Long userId;
 
     @Before
     public void givenUserAndVerificationToken() throws EmailExistsException {
         User user = User.builder()
-                .email("test@gmail.com")
-                .name("testname")
+                .email("wearegang369@gmail.com")
+                .name("halfDev")
                 .role(Role.USER)
                 .build();
+
+        getVerificationToken();
 
         entityManager.persist(user);
 
@@ -67,6 +73,8 @@ public class UserIntegrationTest {
         entityManager.flush();
         entityManager.clear();
     }
+
+    /// /// /// TEST /// /// ///
 
     @Test
     public void whenContextLoad_thenCorrect() {
@@ -91,6 +99,11 @@ public class UserIntegrationTest {
                 .email(email)
                 .name("testName")
                 .build();
+    }
+
+    public void getVerificationToken() {
+        VerificationToken verificationToken = new VerificationToken();
+        verificationTokenService.verifyEmail(verificationToken.getToken());
     }
 
 

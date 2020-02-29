@@ -21,10 +21,6 @@ public class EmailDto {
 
     public String subject;
 
-//    @NotEmpty
-//    @Email
-//    private String email;
-
     @JsonIgnore
     public List<String> tasks;
 
