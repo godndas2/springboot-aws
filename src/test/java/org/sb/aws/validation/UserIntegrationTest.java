@@ -11,11 +11,12 @@ import org.sb.aws.entity.user.Role;
 import org.sb.aws.entity.user.User;
 import org.sb.aws.entity.user.UserRepository;
 import org.sb.aws.exception.EmailExistsException;
+import org.sb.aws.rest.dto.EmailDto;
+import org.sb.aws.service.MailService;
 import org.sb.aws.service.VerificationTokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,7 +29,7 @@ import static org.hibernate.validator.internal.util.Contracts.assertNotNull;
 import static org.junit.Assert.assertEquals;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest
+@SpringBootTest(properties = "application.properties")
 @Transactional
 public class UserIntegrationTest {
 
@@ -38,12 +39,11 @@ public class UserIntegrationTest {
     private CustomOAuth2UserService customOAuth2UserService;
     @Autowired
     private VerificationTokenService verificationTokenService;
+    @Autowired
+    private MailService mailService;
 
     @PersistenceContext
     private EntityManager entityManager;
-
-    @MockBean
-    private JavaMailSender javaMailSender;
 
     private Long userId;
 
@@ -82,14 +82,15 @@ public class UserIntegrationTest {
     public void givenNewUser_whenRegistered_thenCorrect() throws EmailExistsException {
         final String userEmail = UUID.randomUUID().toString();
         final OAuthAttributes oAuthAttributes = createUserDto(userEmail);
-
         final User user = customOAuth2UserService.saveOrUpdate(oAuthAttributes);
 
         final VerificationToken token = getVerificationToken();
-        user.setVerificationToken(token); // VerificationToken of User not working
+        final EmailDto emailDto = createEmailDto(token);
+        verificationTokenService.createVerification(emailDto);
+
+        mailService.sendEmail(createMailMessage());
 
         assertNotNull(token.getToken());
-        assertNotNull(token.getId());
 
         assertNotNull(user);
         assertNotNull(user.getEmail());
@@ -112,6 +113,23 @@ public class UserIntegrationTest {
         assertNotNull(token);
 
         return verificationToken;
+    }
+
+
+    private EmailDto createEmailDto(VerificationToken token) {
+        EmailDto emailDto = new EmailDto();
+        emailDto.setTo("wearegang369@gmail.com");
+        emailDto.setSubject("JUNIT");
+        emailDto.setVerificationapi("http://localhost:8080/verify-email?code=" + token.getToken());
+        return emailDto;
+    }
+
+    private SimpleMailMessage createMailMessage() {
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setTo("wearegang369@gmail.com");
+        message.setSubject("JUNIT");
+        message.setText("TEST");
+        return message;
     }
 
 }
