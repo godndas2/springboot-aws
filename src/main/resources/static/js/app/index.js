@@ -15,16 +15,15 @@ var main = {
     },
     save : function () {
         var data = {
-            title: $('#title').val(),
-            author: $('#author').val(),
-            content: $('#content').val()
+            title : $('#title').val().trim(),
+            author : $('#author').val().trim(),
+            content : $('#content').val().trim()
         };
 
         if (!data.title || !data.author) {
             alert("제목 또는 작성자가 입력되지 않았습니다");
             return false;
         }
-        // TODO 공백체크, 공백제거
 
         $.ajax({
             type: 'POST',
@@ -63,6 +62,10 @@ var main = {
     delete : function () {
         var id = $('#id').val();
 
+        if (confirm("정말 삭제하시겠습니까?") == false) {
+            return false;
+        }
+
         $.ajax({
             type: 'DELETE',
             url: '/api/v1/posts/'+id,
@@ -77,11 +80,4 @@ var main = {
     }
 
 };
-
-function isEmpty(obj) {
-
-    return Object.keys(obj).length === 0;
-
-}
-
 main.init();
