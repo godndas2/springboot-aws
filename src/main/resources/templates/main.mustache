@@ -1,0 +1,42 @@
+{{>layout/header}}
+
+<div class="col-md-12">
+    <div class="row" style="background: #2196F3">
+        <div class="col-md-6">
+            <!-- search -->
+            <div class="topnav">
+                <span>Main</span>&nbsp;
+                <input type="text" placeholder="Search.." name="search" style="width: 400px">
+                <button type="submit"><i class="fa fa-search"></i></button>
+            <!-- signing -->
+            {{#userName}}
+                Logged in as: <span id="user">{{userName}}</span>
+                <a href="/logout" class="btn btn-info active" role="button">Logout</a>
+                <a href="/mail" class="btn btn-primary" role="button">Invite</a> <!-- popup 으로 바꾸자 -->
+            {{/userName}}
+            {{^userName}}
+                <a href="/oauth2/authorization/google" class="btn btn-outline-dark" role="button">
+                    <img width="12px" style="margin-bottom:3px; margin-right:5px" alt="Google sign-in" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png" />
+                    Sign in with Google
+                </a>
+                <a href="/oauth2/authorization/naver" class="btn btn-outline-success" role="button">Sign in with Naver</a>
+            {{/userName}}
+            </div>
+        </div>
+    </div>
+    <br>
+
+    <!-- 목록 출력 영역 -->
+    <table class="table table-horizontal table-bordered" style="height: 80%; width: 40%; float: right;">
+        <thead class="thead-strong" style="font-size: 0.8em;">
+        <tr>
+            <th>게시글번호</th>
+            <th>제목</th>
+            <th>작성자</th>
+            <th>최종수정일</th>
+        </tr>
+        </thead>
+    </table>
+</div>
+
+{{>layout/footer}}

@@ -25,6 +25,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/js/**",
                         "/h2-console/**",
                         "/profile",
+                        "/main",
                         "/mail",
                         "send")
                 .permitAll()

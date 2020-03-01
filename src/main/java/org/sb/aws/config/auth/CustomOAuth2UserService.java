@@ -3,6 +3,7 @@ package org.sb.aws.config.auth;
 import lombok.RequiredArgsConstructor;
 import org.sb.aws.config.auth.dto.OAuthAttributes;
 import org.sb.aws.config.auth.dto.SessionUser;
+import org.sb.aws.entity.mail.VerificationTokenRepository;
 import org.sb.aws.entity.user.User;
 import org.sb.aws.entity.user.UserRepository;
 import org.sb.aws.exception.EmailExistsException;

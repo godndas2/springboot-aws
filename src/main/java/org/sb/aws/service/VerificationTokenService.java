@@ -48,7 +48,7 @@ public class VerificationTokenService {
         }
     }
 
-    public ResponseEntity<String> verifyEmail(String token){
+    public ResponseEntity<String> verifyEmail(String token) {
         List<VerificationToken> verificationTokens = verificationTokenRepository.findByToken(token);
         if (verificationTokens.isEmpty()) {
             return ResponseEntity.badRequest().body("Invalid token.");

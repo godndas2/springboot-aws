@@ -7,6 +7,7 @@ import org.junit.runner.RunWith;
 import org.sb.aws.config.auth.CustomOAuth2UserService;
 import org.sb.aws.config.auth.dto.OAuthAttributes;
 import org.sb.aws.entity.mail.VerificationToken;
+import org.sb.aws.entity.mail.VerificationTokenRepository;
 import org.sb.aws.entity.user.Role;
 import org.sb.aws.entity.user.User;
 import org.sb.aws.entity.user.UserRepository;
@@ -22,7 +23,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import static junit.framework.TestCase.assertTrue;
 import static org.hibernate.validator.internal.util.Contracts.assertNotNull;
@@ -102,7 +105,7 @@ public class UserIntegrationTest {
     private OAuthAttributes createUserDto(final String email) {
         return OAuthAttributes.builder()
                 .email(email)
-                .name("testName")
+                .name("halfDev")
                 .build();
     }
 
@@ -115,7 +118,6 @@ public class UserIntegrationTest {
 
         return verificationToken;
     }
-
 
     private EmailDto createEmailDto(VerificationToken token) {
         EmailDto emailDto = new EmailDto();
